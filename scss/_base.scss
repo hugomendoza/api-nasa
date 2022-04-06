@@ -1,3 +1,25 @@
+html {
+  font-size: 16px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1024 - 320)));
+  }
+
+  @media screen and (max-width: 576px) {
+    font-size: 14px;
+  }
+}
+
 body {
   font-family: $primary-font;
+  background-image: url("../img/bg-home.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }

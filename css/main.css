@@ -1,5 +1,53 @@
+html {
+  font-size: 16px;
+}
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: calc(14px + 2 * (100vw - 320px) / 704);
+  }
+}
+@media screen and (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+}
+
 body {
   font-family: "Inter", sans-serif;
+  background-image: url("../img/bg-home.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 /*# sourceMappingURL=main.css.map */
