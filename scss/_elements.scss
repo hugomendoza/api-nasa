@@ -1,0 +1,51 @@
+.e-grid {
+  
+  input {
+    appearance: none;
+    position: absolute;
+
+    &:checked ~ label {
+      &::before {
+        background-color: transparent;
+        background-image: url("../img/ico-grid.svg");
+      }
+
+      &::after {
+        background-color: $indigo-100;
+        background-image: url("../img/ico-list-active.svg");
+      }
+    }
+  }
+  
+  label {
+    width: toRem(92);
+    border-radius: 0.75rem;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    min-height: toRem(46);
+    padding: 0.2rem;
+    
+    &::before,
+    &::after {
+      content: "";
+      width: 50%;
+      min-height: toRem(42);
+      border-radius: 0.6rem;
+      transition: all 0.25s ease-in-out;
+      background-repeat: no-repeat;
+      background-size: 50% auto;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    &::before {
+      background-color: $indigo-100;
+      background-image: url("../img/ico-grid-active.svg");
+    }
+
+    &::after {
+      background-image: url("../img/ico-list.svg");
+    }
+  }
+}

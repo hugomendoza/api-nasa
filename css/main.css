@@ -20,7 +20,9 @@ body {
   background-size: cover;
   color: white;
 }
-body * {
+body *,
+body *::before,
+body *::after {
   box-sizing: border-box;
 }
 
@@ -32,6 +34,12 @@ img {
 fieldset {
   border: none;
   position: relative;
+}
+
+input,
+select,
+button {
+  outline: none;
 }
 
 .p-1 {
@@ -438,6 +446,51 @@ fieldset {
   align-items: center;
 }
 
+.container {
+  width: min(90vw, 75rem);
+  margin-inline: auto;
+}
+
+.e-grid input {
+  appearance: none;
+  position: absolute;
+}
+.e-grid input:checked ~ label::before {
+  background-color: transparent;
+  background-image: url("../img/ico-grid.svg");
+}
+.e-grid input:checked ~ label::after {
+  background-color: #A5B4FC;
+  background-image: url("../img/ico-list-active.svg");
+}
+.e-grid label {
+  width: 5.75rem;
+  border-radius: 0.75rem;
+  background-color: #312E81;
+  display: flex;
+  align-items: center;
+  min-height: 2.875rem;
+  padding: 0.2rem;
+}
+.e-grid label::before, .e-grid label::after {
+  content: "";
+  width: 50%;
+  min-height: 2.625rem;
+  border-radius: 0.6rem;
+  transition: all 0.25s ease-in-out;
+  background-repeat: no-repeat;
+  background-size: 50% auto;
+  background-position: center;
+  cursor: pointer;
+}
+.e-grid label::before {
+  background-color: #A5B4FC;
+  background-image: url("../img/ico-grid-active.svg");
+}
+.e-grid label::after {
+  background-image: url("../img/ico-list.svg");
+}
+
 .header {
   text-align: center;
 }
@@ -468,9 +521,30 @@ fieldset {
   background: none;
   color: white;
 }
+.header__result {
+  font-size: 1.5rem;
+}
+.header__divider {
+  width: 100%;
+  border-color: #A5B4FC;
+}
+.header__select {
+  appearance: none;
+  color: white;
+  background-color: #312E81;
+  border: 1.75px solid #A5B4FC;
+  padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+  border-radius: 0.5rem;
+  min-height: 2.875rem;
+  font-size: 1rem;
+  background-image: url("../img/ico-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center right 1rem;
+  background-size: 0.75rem;
+}
 
 .form {
-  width: min(90%, 31.25rem);
+  width: min(90%, 35.625rem);
   margin-inline: auto;
   margin-top: 2rem;
 }
@@ -499,6 +573,23 @@ fieldset {
   background: transparent;
   transform: translateY(-50%);
   cursor: pointer;
+}
+.form label {
+  font-size: 0.875rem;
+}
+.form input[type=checkbox] {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: #F9A8D4;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+}
+.form input[type=checkbox]:checked {
+  background-image: url("../img/ico-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70% auto;
 }
 
 /*# sourceMappingURL=main.css.map */

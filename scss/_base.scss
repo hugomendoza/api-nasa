@@ -18,7 +18,9 @@ body {
   background-size: cover;
   color: white;
 
-  * {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 }
@@ -31,4 +33,10 @@ img {
 fieldset {
   border: none;
   position: relative;
+}
+
+input,
+select,
+button {
+  outline: none;
 }
