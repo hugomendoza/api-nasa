@@ -1,0 +1,34 @@
+.form {
+  width: min(90%, toRem(500));
+  margin-inline: auto;
+  margin-top: 2rem;
+
+  *{
+    outline: none;
+  }
+
+  input[type="text"] {
+    appearance: none;
+    width: 100%;
+    color: white;
+    font-size: toRem(24);
+    padding: 1.25rem 2rem 1.25rem 1.25rem;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5rem;
+
+    &::placeholder {
+      color: rgba($color: #ffffff, $alpha: 0.5);
+    }
+  }
+  button {
+    position: absolute;
+    top: 45%;
+    right: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

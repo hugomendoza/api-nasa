@@ -7,33 +7,55 @@
   <title>API Nasa Search</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
   <main>
-    <section>
-      <header>
+    <section class="p-8">
+      <header class="header">
         <img
           loading="lazy"
-          src=""
-          alt=""
+          src="./img/logo-nasa.svg"
+          alt="Logo Nasa"
+          class="header__logo"
         >
-        <h1>
+        <h1 class="header__title">
           Find something amazing
-          <span>in our vast file library!</span>
         </h1>
+        <p class="header__subtitle">
+          in our vast file library!
+        </p>
       </header>
-      <form>
+      <form class="form">
         <fieldset> 
-          <input type="">
+          <input
+            type="text"
+            placeholder="Type your search..."
+          >
+          <button type="submit">
+            <img
+              src="./img/ico-search.svg"
+              alt="icono busqueda"
+              loading="lazy"
+            >
+          </button>
         </fieldset>
-        <fieldset>
-          <input type="checkbox" name="" id="">
-          <input type="checkbox" name="" id="">
-          <input type="checkbox" name="" id="">
-        </fieldset>
+        <div>
+          <fieldset>
+            <input type="checkbox" name="" id="">
+            <label for="">Photos</label>
+          </fieldset>
+          <fieldset>
+            <input type="checkbox" name="" id="">
+            <label for="">Videos</label>
+          </fieldset>
+          <fieldset>
+            <input type="checkbox" name="" id="">
+            <label for="">Audio</label>
+          </fieldset>
+        </div>
       </form>
     </section>
     <section></section>

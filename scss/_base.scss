@@ -17,9 +17,18 @@ body {
   background-position: center;
   background-size: cover;
   color: white;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 img {
   max-width: 100%;
   display: block;
+}
+
+fieldset {
+  border: none;
+  position: relative;
 }

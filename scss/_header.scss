@@ -1,0 +1,35 @@
+.header {
+  text-align: center;
+
+  &__logo {
+    width: min(70vw, 20rem);
+    margin-inline: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  &__title,
+  &__subtitle {
+    font-size: toRem(60);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  &__title {
+    background-color: rgba($color: #ffffff, $alpha: 0.5);
+    background-image: linear-gradient(to right top, #14affc, #009fff, #008dff, #0078ff, #3b5fff, #6e4ffa, #9339f1, #b100e4, #cb00d5, #e000c7, #f000b9, #fc19ad);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-clip: text;
+    -webkit-text-fill-color: rgba($color: #ffffff, $alpha: 0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -moz-text-fill-color: rgba($color: #ffffff, $alpha: 0.5);
+  }
+
+  &__subtitle {
+    display: block;
+    background: none;
+    color: white;
+  }
+}
