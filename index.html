@@ -32,6 +32,8 @@
         <fieldset> 
           <input
             type="text"
+            name="name"
+            id="name"
             placeholder="Type your search..."
           >
           <button type="submit">
@@ -44,16 +46,31 @@
         </fieldset>
         <div class="flex p-left-8">
           <fieldset class="flex items-center">
-            <input type="checkbox" name="" id="">
-            <label for="">Photos</label>
+            <input
+              type="checkbox"
+              name="photos"
+              id="photos"
+              value="image"
+            >
+            <label for="photos">Photos</label>
           </fieldset>
           <fieldset class="flex items-center">
-            <input type="checkbox" name="" id="">
+            <input
+              type="checkbox"
+              name="videos"
+              id="videos"
+              value="video"
+            >
             <label for="">Videos</label>
           </fieldset>
           <fieldset class="flex items-center">
-            <input type="checkbox" name="" id="">
-            <label for="">Audio</label>
+            <input
+              type="checkbox"
+              name="audio"
+              id="audio"
+              value="audio"
+            >
+            <label for="audio">Audio</label>
           </fieldset>
         </div>
       </form>
@@ -87,8 +104,6 @@
         <div class="card-grid">
         </div>
       </div>
-
-      <video src="https://images-assets.nasa.gov/video/JSC-Orion-2021-GA_infographic_animation4k/JSC-Orion-2021-GA_infographic_animation4k~orig.mp4"></video>
     </section>
     <!-- <section>
       <header>

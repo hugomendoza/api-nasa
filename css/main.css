@@ -19,6 +19,7 @@ body {
   background-position: center;
   background-size: cover;
   color: white;
+  min-height: 100vh;
 }
 body *,
 body *::before,
@@ -493,12 +494,12 @@ button {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 100%);
   gap: 1.5625rem;
   margin-top: 2rem;
 }
 .card-grid--list {
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1, 100%);
 }
 .card-grid--list .card {
   display: flex;
