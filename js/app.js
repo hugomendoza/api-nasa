@@ -1,6 +1,8 @@
 const inputGrid = document.getElementById("grid");
 const cards = document.querySelector(".card-grid");
 const formSubmit = document.querySelector(".form");
+const sectionCards = document.querySelector(".search")
+const titleResult = document.querySelector(".header__result strong")
 
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
@@ -76,7 +78,8 @@ const handleApi = (arg) => {
         const dataInner = dataApi[i].data
         const {media_type, nasa_id, photographer, title, date_created} = dataInner[0]
         const thumbnail = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}~thumb.jpg`
-        console.log(dataInner)
+        // console.log(dataInner)
+        sectionCards.classList.add("search--active")
         cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, date_created)
       }
     });
@@ -95,6 +98,6 @@ formSubmit.addEventListener("submit", (e) => {
   }
   let mediaTypes = formatTypes.join(',');
   let url = `https://images-api.nasa.gov/search?q=${inputText}${formatTypes.length !== 0 ? `&media_type=${mediaTypes}` : ""}`
-
+  titleResult.innerHTML = inputText.toString();
   handleApi(url)
 })
