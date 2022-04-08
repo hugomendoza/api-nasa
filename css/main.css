@@ -494,12 +494,12 @@ button {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 100%);
+  grid-template-columns: repeat(4, 25%);
   gap: 1.5625rem;
   margin-top: 2rem;
 }
 .card-grid--list {
-  grid-template-columns: repeat(1, 100%);
+  grid-template-columns: repeat(1, 1fr);
 }
 .card-grid--list .card {
   display: flex;
