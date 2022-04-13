@@ -106,37 +106,56 @@
       </div>
     </section>
     <section class="modal">
-      <header>
-        <blockquote>
-          <p>Infrared Spotlight on Orion Sword</p>
-          <span>185 MB</span><span>·</span><span>14 minutes ago</span>
-          <p>photo</p>
+      <header class="modal__header">
+        <blockquote class="modal__title">
+          <p class="modal__name"></p>
+          <p>185 MB</p>
+          <p>14 minutes ago</p>
         </blockquote>
-        <aside>
-          <button>
-            <img src="" alt="">
-            <p>Download</p>
-          </button>
+        <aside class="modal__buttons">
+          <div class="m-auto">
+            <button
+              class="modal__download"
+            >
+              <img
+                src="./img/ico-download.svg"
+                alt="icono download"
+              >
+              <p>Download</p>
+            </button>
+          </div>
+          <div>
+            <button
+              class="modal__close"
+            >
+              <img
+                src="./img/ico-close.svg"
+                alt="icono cerrar"
+              >
+            </button>
+          </div>
         </aside>
       </header>
-      <article>
-        <figure>
-          <img src="" alt="">
-        </figure>
-        <ul>
-          <li>
+      <article class="modal__body">
+        <div class="card">
+          <div class="card__picture card--modal">
+            
+          </div>
+        </div>
+        <ul class="modal__list">
+          <li class="modal__list-item">
             <p>Information</p>
           </li>
-          <li>
+          <li class="modal__list-item">
             <p>Created by</p>
             <p>NASA or National Aeronautics and Space Administration</p>
           </li>
-          <li>
+          <li class="modal__list-item">
             <p>Date created</p>
             <p>5 November, 2021</p>
           </li>
         </ul>
-        <blockquote>
+        <blockquote class="modal__description">
           <p>Description</p>
           <p>KENNEDY SPACE CENTER, FLA. - Members of the STS-114 crew pose for a photo</p>
         </blockquote>

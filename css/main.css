@@ -452,6 +452,10 @@ button {
   margin-inline: auto;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .e-grid input {
   appearance: none;
   position: absolute;
@@ -573,6 +577,101 @@ button {
   background-size: 0.75rem;
 }
 
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-color: #312E81;
+  visibility: hidden;
+  opacity: 0;
+  top: -100%;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+}
+.modal--active {
+  visibility: visible;
+  opacity: 1;
+  top: 0;
+  pointer-events: auto;
+}
+.modal__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.modal__title {
+  width: calc(100% - 252px);
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  margin: 0;
+}
+.modal__title p {
+  margin: 0;
+  line-height: 1.3;
+  font-size: 0.875rem;
+}
+.modal__title, .modal__buttons {
+  border-bottom: 1.5px solid #A5B4FC;
+}
+.modal__buttons {
+  display: flex;
+}
+.modal button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.modal__download {
+  background-color: #F9A8D4;
+  border: none;
+  min-width: 130px;
+  border-radius: 0.5rem;
+  min-height: 2.375rem;
+  margin-inline: auto;
+  margin: auto;
+  margin-right: 2rem;
+}
+.modal__download img {
+  width: 1rem;
+  margin-right: 0.5rem;
+}
+.modal__download p {
+  color: #9D174D;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.modal__close {
+  background-color: transparent;
+  width: 5.625rem;
+  display: flex;
+  appearance: none;
+  border: none;
+  min-height: 5rem;
+  border-left: 1.5px solid #A5B4FC;
+}
+.modal__body {
+  width: min(90vw, 64rem);
+  margin-inline: auto;
+}
+.modal__list {
+  padding: 0;
+}
+.modal__list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1.5px solid #A5B4FC;
+}
+.modal__list-item p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+.modal__description {
+  margin: 2rem 0 0 0;
+}
+
 .form {
   width: min(90%, 35.625rem);
   margin-inline: auto;
@@ -626,11 +725,17 @@ button {
   position: relative;
   cursor: pointer;
 }
+.card * {
+  pointer-events: none;
+}
 .card__picture {
   position: relative;
   aspect-ratio: 16/9;
   margin: 0;
   display: block;
+}
+.card__picture img {
+  pointer-events: none;
 }
 .card__thumbnail {
   position: absolute;
@@ -664,6 +769,9 @@ button {
   display: table;
   font-size: 0.8125rem;
   text-transform: uppercase;
+}
+.card--modal {
+  margin-top: 2rem;
 }
 
 /*# sourceMappingURL=main.css.map */

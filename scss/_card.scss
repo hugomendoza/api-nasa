@@ -2,11 +2,19 @@
   position: relative;
   cursor: pointer;
 
+  *{
+    pointer-events: none;
+  }
+
   &__picture {
     position: relative;
     aspect-ratio: 16 / 9;
     margin: 0;
     display: block;
+
+    img {
+      pointer-events: none;
+    }
   }
 
   &__thumbnail {
@@ -46,5 +54,9 @@
     display: table;
     font-size: toRem(13);
     text-transform: uppercase;
+  }
+
+  &--modal {
+    margin-top: 2rem;
   }
 }

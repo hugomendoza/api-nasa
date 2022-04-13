@@ -2,17 +2,27 @@ const inputGrid = document.getElementById("grid");
 const cards = document.querySelector(".card-grid");
 const formSubmit = document.querySelector(".form");
 const sectionCards = document.querySelector(".search")
-const titleResult = document.querySelector(".header__result strong")
+const titleResult = document.querySelector(".header__result strong");
+const modal = document.querySelector(".modal");
+const cardsResult = document.querySelectorAll(".card--grid"); 
 
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
 
-const cardComponent = (media_type, thumbnail, photographer, title, date_created) => {
+const cardComponent = (media_type, thumbnail, photographer, title, date_created, urlFormat) => {
   let card =
   `
-    <article class="card">
-      <figure class="card__picture">
+    <article
+      class="card card--grid"
+      data-media="${media_type}"
+      data-name="${title}"
+      data-resource="${urlFormat}"
+      data-creator="${photographer}"
+      data-created="${date_created}"
+      data-thumbnail="${thumbnail}"
+    >
+      <figure class="card__picture card__picture__ssssss">
         ${media_type === "audio" ?
           `
             <img
@@ -60,6 +70,50 @@ const cardComponent = (media_type, thumbnail, photographer, title, date_created)
   return card
 }
 
+const videoModal = (urlFormat, thumbnail) => {
+  let videoComponent =
+    `
+      <video
+        style="pointer-events: auto;"
+        src="${urlFormat}~orig.mp4"
+        poster="${thumbnail}"
+        class="card__thumbnail"
+        controls
+      >
+        Tu navegador no admite el elemento <code>video</code>.
+      </video>
+      <img
+        loading="lazy"
+        src="./img/ico-play.svg"
+        alt="icono play"
+        class="card__play"
+      >
+    `
+  return videoComponent
+}
+
+const audioModal = (urlFormat) => {
+  let audioComponent =
+    `
+      <audio
+        style="pointer-events: auto;"
+        src="${urlFormat}~orig.mp3"
+        controls
+        class="card__thumbnail"
+      >
+      </audio>
+    `
+  return audioComponent
+}
+
+const imageModal = (urlFormat) => {
+  let imageComponent =
+    `
+      <img src="${urlFormat}~large.jpg" class="card__thumbnail"" />
+    `
+  return imageComponent
+}
+
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
@@ -72,15 +126,17 @@ const handleApi = (arg) => {
     .then(response => response.json())
     .then(data => {
       const dataApi = data.collection.items
-      // console.log(dataApi)
+      console.log(dataApi)
       for (let i = 0; i < dataApi.length; i++) {
         
         const dataInner = dataApi[i].data
-        const {media_type, nasa_id, photographer, title, date_created} = dataInner[0]
-        const thumbnail = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}~thumb.jpg`
+        const { media_type, nasa_id, photographer, title, date_created } = dataInner[0]
+        const typeThumbnail = "~thumb.jpg"
+        const urlFormat = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}`
+        const thumbnail = `${urlFormat}${typeThumbnail}`
         // console.log(dataInner)
         sectionCards.classList.add("search--active")
-        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, date_created)
+        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, date_created, urlFormat)
       }
     });
 }
@@ -101,3 +157,27 @@ formSubmit.addEventListener("submit", (e) => {
   titleResult.innerHTML = inputText.toString();
   handleApi(url)
 })
+
+cards.addEventListener('click', (e) => {
+  if (e.target.closest('.card-grid .card')) {
+    modal.classList.add("modal--active")
+    const name = e.target.getAttribute("data-name")
+    const urlFormat = e.target.getAttribute("data-resource")
+    const media = e.target.getAttribute("data-media")
+    const thumbnail = e.target.getAttribute("data-thumbnail")
+    console.log(thumbnail)
+    document.querySelector(".modal__name").innerHTML = name
+    const cardModal = document.querySelector(".card--modal")
+    if (media === "video") {
+      cardModal.innerHTML = videoModal(urlFormat, thumbnail)
+    } else if (media === "audio") {
+      cardModal.innerHTML = audioModal(urlFormat)
+    } else {
+      cardModal.innerHTML = imageModal(urlFormat)
+    }
+  }
+});
+
+
+
+
