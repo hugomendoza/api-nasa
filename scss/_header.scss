@@ -35,6 +35,9 @@
 
   &__result {
     font-size: toRem(24);
+    strong {
+      text-transform: capitalize;
+    }
   }
 
   &__divider {

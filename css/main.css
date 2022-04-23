@@ -558,6 +558,9 @@ button {
 .header__result {
   font-size: 1.5rem;
 }
+.header__result strong {
+  text-transform: capitalize;
+}
 .header__divider {
   width: 100%;
   border-color: #A5B4FC;

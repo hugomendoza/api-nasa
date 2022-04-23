@@ -120,23 +120,38 @@ function removeAllChildNodes(parent) {
   }
 }
 
+function toTimestamp(strDate){
+  var datum = Date.parse(strDate);
+  return datum/1000;
+}
+
+const handleTimeStamp = (arg) => {
+  let timestamp = arg
+  const date = new Date(timestamp * 1000).toLocaleString("en-GB", {timeZone: "UTC"});
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return timeConvert = year + "/" + month  + "/" + day
+}
+
 const handleApi = (arg) => {
   removeAllChildNodes(cards); 
   fetch(arg)
     .then(response => response.json())
     .then(data => {
       const dataApi = data.collection.items
-      console.log(dataApi)
       for (let i = 0; i < dataApi.length; i++) {
-        
         const dataInner = dataApi[i].data
         const { media_type, nasa_id, photographer, title, date_created } = dataInner[0]
+        console.log(dataInner[0])
+        const dateCreated = toTimestamp(date_created)
+        const dateEnd = handleTimeStamp(dateCreated)
         const typeThumbnail = "~thumb.jpg"
         const urlFormat = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}`
         const thumbnail = `${urlFormat}${typeThumbnail}`
-        // console.log(dataInner)
         sectionCards.classList.add("search--active")
-        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, date_created, urlFormat)
+        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, dateEnd, urlFormat)
       }
     });
 }
@@ -165,7 +180,6 @@ cards.addEventListener('click', (e) => {
     const urlFormat = e.target.getAttribute("data-resource")
     const media = e.target.getAttribute("data-media")
     const thumbnail = e.target.getAttribute("data-thumbnail")
-    console.log(thumbnail)
     document.querySelector(".modal__name").innerHTML = name
     const cardModal = document.querySelector(".card--modal")
     if (media === "video") {
