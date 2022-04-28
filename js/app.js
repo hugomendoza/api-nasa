@@ -1,139 +1,25 @@
+//Functions
+import { handleTimeStamp, removeAllChildNodes, toTimestamp } from "./functions/functions.js";
+
+//Components
+import { cardComponent } from "./components/cardComponent.js";
+import { videoModal } from "./components/videoModal.js";
+import { audioModal } from "./components/audioModal.js";
+import { imageModal } from "./components/imageModal.js";
+
+//Variables
 const inputGrid = document.getElementById("grid");
 const cards = document.querySelector(".card-grid");
 const formSubmit = document.querySelector(".form");
 const sectionCards = document.querySelector(".search")
 const titleResult = document.querySelector(".header__result strong");
 const modal = document.querySelector(".modal");
-const cardsResult = document.querySelectorAll(".card--grid"); 
+const modalClose = document.querySelector(".modal__close");
 
+//Change grid cards
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
-
-const cardComponent = (media_type, thumbnail, photographer, title, date_created, urlFormat) => {
-  let card =
-  `
-    <article
-      class="card card--grid"
-      data-media="${media_type}"
-      data-name="${title}"
-      data-resource="${urlFormat}"
-      data-creator="${photographer}"
-      data-created="${date_created}"
-      data-thumbnail="${thumbnail}"
-    >
-      <figure class="card__picture card__picture__ssssss">
-        ${media_type === "audio" ?
-          `
-            <img
-              loading="lazy"
-              src="./img/nasa-podcast.jpg"
-              alt="icono play"
-              class="card__thumbnail"
-            >
-          `
-          :
-          `
-            <img
-              loading="lazy"
-              src="${thumbnail}"
-              alt="${title}"
-              class="card__thumbnail"
-            >
-          `
-        }
-        ${media_type == "video" ?
-          `
-            <img
-              loading="lazy"
-              src="./img/ico-play.svg"
-              alt="icono play"
-              class="card__play"
-            >
-          `
-          :
-          ""
-        }
-      </figure>
-      <blockquote class="card__description">
-        <p class="card__name">${title}</p>
-        <p class="card__data">
-          ${photographer ? photographer : "NASA"}
-        </p>
-        <p class="card__data">
-          ${date_created}
-        </p>
-        <p class="card__category">${media_type}</p>
-      </blockquote>
-    </article>
-  `
-  return card
-}
-
-const videoModal = (urlFormat, thumbnail) => {
-  let videoComponent =
-    `
-      <video
-        style="pointer-events: auto;"
-        src="${urlFormat}~orig.mp4"
-        poster="${thumbnail}"
-        class="card__thumbnail"
-        controls
-      >
-        Tu navegador no admite el elemento <code>video</code>.
-      </video>
-      <img
-        loading="lazy"
-        src="./img/ico-play.svg"
-        alt="icono play"
-        class="card__play"
-      >
-    `
-  return videoComponent
-}
-
-const audioModal = (urlFormat) => {
-  let audioComponent =
-    `
-      <audio
-        style="pointer-events: auto;"
-        src="${urlFormat}~orig.mp3"
-        controls
-        class="card__thumbnail"
-      >
-      </audio>
-    `
-  return audioComponent
-}
-
-const imageModal = (urlFormat) => {
-  let imageComponent =
-    `
-      <img src="${urlFormat}~large.jpg" class="card__thumbnail"" />
-    `
-  return imageComponent
-}
-
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
-function toTimestamp(strDate){
-  var datum = Date.parse(strDate);
-  return datum/1000;
-}
-
-const handleTimeStamp = (arg) => {
-  let timestamp = arg
-  const date = new Date(timestamp * 1000).toLocaleString("en-GB", {timeZone: "UTC"});
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  return timeConvert = year + "/" + month  + "/" + day
-}
 
 const handleApi = (arg) => {
   removeAllChildNodes(cards); 
@@ -141,18 +27,17 @@ const handleApi = (arg) => {
     .then(response => response.json())
     .then(data => {
       const dataApi = data.collection.items
-      for (let i = 0; i < dataApi.length; i++) {
-        const dataInner = dataApi[i].data
-        const { media_type, nasa_id, photographer, title, date_created } = dataInner[0]
-        console.log(dataInner[0])
+      dataApi.map((e) => {
+        const dataInner = e.data[0]
+        const { media_type, nasa_id, photographer, title, date_created, description } = dataInner
         const dateCreated = toTimestamp(date_created)
         const dateEnd = handleTimeStamp(dateCreated)
         const typeThumbnail = "~thumb.jpg"
         const urlFormat = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}`
         const thumbnail = `${urlFormat}${typeThumbnail}`
         sectionCards.classList.add("search--active")
-        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, dateEnd, urlFormat)
-      }
+        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, dateEnd, urlFormat, description)
+      })
     });
 }
 
@@ -177,10 +62,17 @@ cards.addEventListener('click', (e) => {
   if (e.target.closest('.card-grid .card')) {
     modal.classList.add("modal--active")
     const name = e.target.getAttribute("data-name")
+    const created = e.target.getAttribute("data-created")
+    const creator = e.target.getAttribute("data-creator")
     const urlFormat = e.target.getAttribute("data-resource")
+    const description = e.target.getAttribute("data-description")
     const media = e.target.getAttribute("data-media")
     const thumbnail = e.target.getAttribute("data-thumbnail")
+    console.log(description)
     document.querySelector(".modal__name").innerHTML = name
+    document.querySelector(".modal__date").innerHTML = created
+    document.querySelector(".modal__creator").innerHTML = creator
+    document.querySelector(".modal__text-description").innerHTML = description
     const cardModal = document.querySelector(".card--modal")
     if (media === "video") {
       cardModal.innerHTML = videoModal(urlFormat, thumbnail)
@@ -192,6 +84,12 @@ cards.addEventListener('click', (e) => {
   }
 });
 
-
-
-
+modalClose?.addEventListener("click", () => {
+  modal.classList.remove("modal--active")
+  document.querySelector(".modal__name").innerHTML = ""
+  document.querySelector(".modal__date").innerHTML = ""
+  document.querySelector(".modal__creator").innerHTML = ""
+  document.querySelector(".modal__text-description").innerHTML = ""
+  const cardModal = document.querySelector(".card--modal")
+  cardModal.innerHTML = ""
+})
