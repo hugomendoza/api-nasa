@@ -58,3 +58,4 @@ export const cardComponent = (media_type, thumbnail, photographer, title, date_c
   `
   return card
 }
+

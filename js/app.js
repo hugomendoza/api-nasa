@@ -1,55 +1,25 @@
 //Functions
-import { handleTimeStamp } from "./functions/functions.js";
+import { handleTimeStamp, removeAllChildNodes, toTimestamp } from "./functions/functions.js";
 
 //Components
 import { cardComponent } from "./components/cardComponent.js";
 import { videoModal } from "./components/videoModal.js";
+import { audioModal } from "./components/audioModal.js";
+import { imageModal } from "./components/imageModal.js";
 
+//Variables
 const inputGrid = document.getElementById("grid");
 const cards = document.querySelector(".card-grid");
 const formSubmit = document.querySelector(".form");
 const sectionCards = document.querySelector(".search")
 const titleResult = document.querySelector(".header__result strong");
 const modal = document.querySelector(".modal");
-const cardsResult = document.querySelectorAll(".card--grid"); 
 const modalClose = document.querySelector(".modal__close");
 
+//Change grid cards
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
-
-const audioModal = (urlFormat) => {
-  let audioComponent =
-    `
-      <audio
-        style="pointer-events: auto;"
-        src="${urlFormat}~orig.mp3"
-        controls
-        class="card__thumbnail"
-      >
-      </audio>
-    `
-  return audioComponent
-}
-
-const imageModal = (urlFormat) => {
-  let imageComponent =
-    `
-      <img src="${urlFormat}~orig.jpg" class="card__thumbnail"" />
-    `
-  return imageComponent
-}
-
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
-function toTimestamp(strDate){
-  var datum = Date.parse(strDate);
-  return datum/1000;
-}
 
 const handleApi = (arg) => {
   removeAllChildNodes(cards); 
@@ -57,10 +27,9 @@ const handleApi = (arg) => {
     .then(response => response.json())
     .then(data => {
       const dataApi = data.collection.items
-      for (let i = 0; i < dataApi.length; i++) {
-        const dataInner = dataApi[i].data
-        console.log(dataApi)
-        const { media_type, nasa_id, photographer, title, date_created, description } = dataInner[0]
+      dataApi.map((e) => {
+        const dataInner = e.data[0]
+        const { media_type, nasa_id, photographer, title, date_created, description } = dataInner
         const dateCreated = toTimestamp(date_created)
         const dateEnd = handleTimeStamp(dateCreated)
         const typeThumbnail = "~thumb.jpg"
@@ -68,7 +37,7 @@ const handleApi = (arg) => {
         const thumbnail = `${urlFormat}${typeThumbnail}`
         sectionCards.classList.add("search--active")
         cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, dateEnd, urlFormat, description)
-      }
+      })
     });
 }
 
@@ -99,6 +68,7 @@ cards.addEventListener('click', (e) => {
     const description = e.target.getAttribute("data-description")
     const media = e.target.getAttribute("data-media")
     const thumbnail = e.target.getAttribute("data-thumbnail")
+    console.log(description)
     document.querySelector(".modal__name").innerHTML = name
     document.querySelector(".modal__date").innerHTML = created
     document.querySelector(".modal__creator").innerHTML = creator
@@ -123,7 +93,3 @@ modalClose?.addEventListener("click", () => {
   const cardModal = document.querySelector(".card--modal")
   cardModal.innerHTML = ""
 })
-
-
-
-

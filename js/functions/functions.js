@@ -5,6 +5,17 @@ export const handleTimeStamp = (arg, timeConvert) => {
   const year = time.getUTCFullYear();
   const month = time.toLocaleString("En-en", {month: "long"})
   const day = time.getDate();
-  // console.log(day +" - " + month  + " - " + year)
+  
   return timeConvert = day +" " + month  + ", " + year
+}
+
+export const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+export const toTimestamp = (strDate) => {
+  const datum = Date.parse(strDate);
+  return datum/1000;
 }
