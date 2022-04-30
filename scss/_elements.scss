@@ -52,7 +52,7 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(4, minmax(0, 1fr));;
   gap: toRem(25);
   margin-top: 2rem;
 

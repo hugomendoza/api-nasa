@@ -74,12 +74,16 @@ cards.addEventListener('click', (e) => {
     document.querySelector(".modal__creator").innerHTML = creator
     document.querySelector(".modal__text-description").innerHTML = description
     const cardModal = document.querySelector(".card--modal")
-    if (media === "video") {
-      cardModal.innerHTML = videoModal(urlFormat, thumbnail)
-    } else if (media === "audio") {
-      cardModal.innerHTML = audioModal(urlFormat)
-    } else {
-      cardModal.innerHTML = imageModal(urlFormat)
+    switch (media) {
+      case media === "video":
+        cardModal.innerHTML = videoModal(urlFormat, thumbnail)
+        break;
+      case media === "audio":
+        cardModal.innerHTML = audioModal(urlFormat)
+        break;
+      default:
+        cardModal.innerHTML = imageModal(urlFormat)
+        break;
     }
   }
 });

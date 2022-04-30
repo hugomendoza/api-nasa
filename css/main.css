@@ -498,7 +498,7 @@ button {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5625rem;
   margin-top: 2rem;
 }
