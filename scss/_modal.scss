@@ -10,6 +10,7 @@
   top: -100%;
   pointer-events: none;
   transition: all 0.5s ease-in-out;
+  overflow-y: scroll;
 
   &--active {
     visibility: visible;
@@ -105,6 +106,11 @@
   }
 
   &__description {
-    margin: 2rem 0 0 0;
+    margin: 2rem 0 4rem;
+
+    a {
+      color: white;
+      font-weight: 700;
+    }
   }
 }

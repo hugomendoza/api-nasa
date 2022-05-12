@@ -13,21 +13,15 @@
 </head>
 <body>
   <main>
-    <section class="p-8">
-      <header class="header">
-        <img
-          loading="lazy"
-          src="./img/logo-nasa.svg"
-          alt="Logo Nasa"
-          class="header__logo"
-        >
-        <h1 class="header__title">
-          Find something amazing
-        </h1>
-        <p class="header__subtitle">
-          in our vast file library!
-        </p>
-      </header>
+    <section class="container">
+      
+      <header-component
+        title="Find something amazing"
+        subtitle="in our vast file library!"
+        src="./img/logo-nasa.svg"
+      >
+      </header-component>
+
       <form class="form">
         <fieldset> 
           <input
@@ -45,38 +39,35 @@
           </button>
         </fieldset>
         <div class="flex p-left-8">
-          <fieldset class="flex items-center">
-            <input
-              type="checkbox"
-              name="photos"
-              id="photos"
-              value="image"
-            >
-            <label for="photos">Photos</label>
-          </fieldset>
-          <fieldset class="flex items-center">
-            <input
-              type="checkbox"
-              name="videos"
-              id="videos"
-              value="video"
-            >
-            <label for="">Videos</label>
-          </fieldset>
-          <fieldset class="flex items-center">
-            <input
-              type="checkbox"
-              name="audio"
-              id="audio"
-              value="audio"
-            >
-            <label for="audio">Audio</label>
-          </fieldset>
+          <input-component
+            type="checkbox"
+            name="photos"
+            id="photos"
+            value="image"
+            label="photos"
+          >
+          </input-component>
+          <input-component
+            type="checkbox"
+            name="videos"
+            id="videos"
+            value="video"
+            label="videos"
+          >
+          </input-component>
+          <input-component
+            type="checkbox"
+            name="audio"
+            id="audio"
+            value="audio"
+            label="audio"
+          >
+          </input-component>
         </div>
       </form>
     </section>
     <section class="search">
-      <div class="container p-8">
+      <div class="container">
         <header class="header flex flex-wrap justify-between items-center">
           <p class="header__result">
             Results for <strong></strong>
@@ -155,7 +146,7 @@
         </ul>
         <blockquote class="modal__description">
           <p>Description</p>
-          <p class="modal__text-description">KENNEDY SPACE CENTER, FLA. - Members of the STS-114 crew pose for a photo</p>
+          <p class="modal__text-description"></p>
         </blockquote>
       </article>
     </section>
