@@ -26,16 +26,14 @@ inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
 
-let mainArray = []
 
 const handleApi = (arg) => {
-  // removeAllChildNodes(cards); 
+  removeAllChildNodes(cards); 
   fetch(arg)
     .then(response => response.json())
     .then(data => {
       // console.log(data.collection.links)
       const dataApi = data.collection.items
-      mainArray.push(dataApi)
       dataApi.map((e) => {
         const dataInner = e.data[0]
         const { media_type, nasa_id, photographer, title, date_created, description } = dataInner
@@ -50,8 +48,6 @@ const handleApi = (arg) => {
     });
 }
 
-console.log(mainArray)
-
 formSubmit.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputText = document.querySelector("input[name='name']").value;
@@ -64,7 +60,7 @@ formSubmit.addEventListener("submit", (e) => {
     }
   }
   let mediaTypes = formatTypes.join(',');
-  let url = `https://images-api.nasa.gov/search?q=${inputText}&page=1${formatTypes.length !== 0 ? `&media_type=${mediaTypes}` : ""}`
+  let url = `https://images-api.nasa.gov/search?q=${inputText}${formatTypes.length !== 0 ? `&media_type=${mediaTypes}` : ""}`
   titleResult.innerHTML = inputText.toString();
   handleApi(url)
 })

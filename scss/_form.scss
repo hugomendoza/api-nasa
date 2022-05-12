@@ -20,6 +20,11 @@
     &::placeholder {
       color: rgba($color: #ffffff, $alpha: 0.5);
     }
+
+    @media screen and (max-width: 768px) {
+      padding: 1rem 2rem 1rem 1rem;
+      font-size: toRem(20);
+    }
   }
   button {
     position: absolute;
@@ -34,6 +39,11 @@
 
   label {
     font-size: toRem(14);
+    text-transform: capitalize;
+    
+    @media screen and (max-width: 768px) {
+      font-size: toRem(16);
+    }
   }
 
   input[type="checkbox"] {
@@ -42,13 +52,18 @@
     height: toRem(20);
     background-color: $pink-100;
     border-radius: 0.25rem;
-    margin-right: 0.25rem;
+    margin: 0 0.5rem ;
 
     &:checked {
       background-image: url("../img/ico-check.svg");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 70% auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: toRem(25);
+      height: toRem(25);
     }
   }
 }
