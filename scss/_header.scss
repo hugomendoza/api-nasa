@@ -2,7 +2,7 @@
   text-align: center;
 
   &__logo {
-    width: min(70vw, 20rem);
+    width: min(60vw, 20rem);
     margin-inline: auto;
     margin-bottom: 2.5rem;
   }
@@ -13,6 +13,10 @@
     font-weight: 900;
     line-height: 1.1;
     margin: 0;
+
+    @media screen and (max-width: 768px) {
+      font-size: toRem(30);
+    }
   }
 
   &__title {

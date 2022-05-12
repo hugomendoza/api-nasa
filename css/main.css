@@ -26,6 +26,9 @@ body *::before,
 body *::after {
   box-sizing: border-box;
 }
+body.no-scroll {
+  overflow: hidden;
+}
 
 img {
   max-width: 100%;
@@ -514,6 +517,21 @@ button {
   width: min(50%, 18.75rem);
   margin-right: 1rem;
 }
+@media screen and (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 576px) {
+  .card-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
 
 .search {
   opacity: 0;
@@ -529,7 +547,7 @@ button {
   text-align: center;
 }
 .header__logo {
-  width: min(70vw, 20rem);
+  width: min(60vw, 20rem);
   margin-inline: auto;
   margin-bottom: 2.5rem;
 }
@@ -538,6 +556,11 @@ button {
   font-weight: 900;
   line-height: 1.1;
   margin: 0;
+}
+@media screen and (max-width: 768px) {
+  .header__title, .header__subtitle {
+    font-size: 1.875rem;
+  }
 }
 .header__title {
   background-color: rgba(255, 255, 255, 0.5);
@@ -592,6 +615,7 @@ button {
   top: -100%;
   pointer-events: none;
   transition: all 0.5s ease-in-out;
+  overflow-y: scroll;
 }
 .modal--active {
   visibility: visible;
@@ -673,11 +697,15 @@ button {
   margin: 0;
 }
 .modal__description {
-  margin: 2rem 0 0 0;
+  margin: 2rem 0 4rem;
+}
+.modal__description a {
+  color: white;
+  font-weight: 700;
 }
 
 .form {
-  width: min(90%, 35.625rem);
+  width: min(100%, 35.625rem);
   margin-inline: auto;
   margin-top: 2rem;
 }

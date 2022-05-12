@@ -1,7 +1,11 @@
 //Functions
 import { handleTimeStamp, removeAllChildNodes, toTimestamp } from "./functions/functions.js";
 
-//Components
+//webcomponents
+import { headerComponent } from "./webComponents/headerComponent.js";
+import { inputComponent } from "./webComponents/inputComponent.js";
+
+//components
 import { cardComponent } from "./components/cardComponent.js";
 import { videoModal } from "./components/videoModal.js";
 import { audioModal } from "./components/audioModal.js";
@@ -15,18 +19,23 @@ const sectionCards = document.querySelector(".search")
 const titleResult = document.querySelector(".header__result strong");
 const modal = document.querySelector(".modal");
 const modalClose = document.querySelector(".modal__close");
+const body = document.body
 
 //Change grid cards
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
 
+let mainArray = []
+
 const handleApi = (arg) => {
-  removeAllChildNodes(cards); 
+  // removeAllChildNodes(cards); 
   fetch(arg)
     .then(response => response.json())
     .then(data => {
+      // console.log(data.collection.links)
       const dataApi = data.collection.items
+      mainArray.push(dataApi)
       dataApi.map((e) => {
         const dataInner = e.data[0]
         const { media_type, nasa_id, photographer, title, date_created, description } = dataInner
@@ -41,6 +50,8 @@ const handleApi = (arg) => {
     });
 }
 
+console.log(mainArray)
+
 formSubmit.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputText = document.querySelector("input[name='name']").value;
@@ -53,7 +64,7 @@ formSubmit.addEventListener("submit", (e) => {
     }
   }
   let mediaTypes = formatTypes.join(',');
-  let url = `https://images-api.nasa.gov/search?q=${inputText}${formatTypes.length !== 0 ? `&media_type=${mediaTypes}` : ""}`
+  let url = `https://images-api.nasa.gov/search?q=${inputText}&page=1${formatTypes.length !== 0 ? `&media_type=${mediaTypes}` : ""}`
   titleResult.innerHTML = inputText.toString();
   handleApi(url)
 })
@@ -61,6 +72,7 @@ formSubmit.addEventListener("submit", (e) => {
 cards.addEventListener('click', (e) => {
   if (e.target.closest('.card-grid .card')) {
     modal.classList.add("modal--active")
+    body.classList.add("no-scroll")
     const name = e.target.getAttribute("data-name")
     const created = e.target.getAttribute("data-created")
     const creator = e.target.getAttribute("data-creator")
@@ -68,17 +80,16 @@ cards.addEventListener('click', (e) => {
     const description = e.target.getAttribute("data-description")
     const media = e.target.getAttribute("data-media")
     const thumbnail = e.target.getAttribute("data-thumbnail")
-    console.log(description)
     document.querySelector(".modal__name").innerHTML = name
     document.querySelector(".modal__date").innerHTML = created
     document.querySelector(".modal__creator").innerHTML = creator
     document.querySelector(".modal__text-description").innerHTML = description
     const cardModal = document.querySelector(".card--modal")
     switch (media) {
-      case media === "video":
+      case "video":
         cardModal.innerHTML = videoModal(urlFormat, thumbnail)
         break;
-      case media === "audio":
+      case "audio":
         cardModal.innerHTML = audioModal(urlFormat)
         break;
       default:
@@ -90,6 +101,7 @@ cards.addEventListener('click', (e) => {
 
 modalClose?.addEventListener("click", () => {
   modal.classList.remove("modal--active")
+  body.classList.remove("no-scroll")
   document.querySelector(".modal__name").innerHTML = ""
   document.querySelector(".modal__date").innerHTML = ""
   document.querySelector(".modal__creator").innerHTML = ""
@@ -97,3 +109,6 @@ modalClose?.addEventListener("click", () => {
   const cardModal = document.querySelector(".card--modal")
   cardModal.innerHTML = ""
 })
+
+window.customElements.define("header-component", headerComponent);
+window.customElements.define("input-component", inputComponent);

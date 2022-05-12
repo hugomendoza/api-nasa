@@ -1,4 +1,5 @@
 export const cardComponent = (media_type, thumbnail, photographer, title, date_created, urlFormat, description) => {
+  const descriptionStore = description.replace(/"/g, `'`)
   let card =
   `
     <article
@@ -9,9 +10,9 @@ export const cardComponent = (media_type, thumbnail, photographer, title, date_c
       data-creator="${photographer ? photographer : "NASA"}"
       data-created="${date_created}"
       data-thumbnail="${thumbnail}"
-      data-description="${description}"
+      data-description="${descriptionStore}"
     >
-      <figure class="card__picture card__picture__ssssss">
+      <figure class="card__picture">
         ${media_type === "audio" ?
           `
             <img
