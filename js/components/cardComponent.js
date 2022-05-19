@@ -1,16 +1,8 @@
-export const cardComponent = (media_type, thumbnail, photographer, title, date_created, urlFormat, description) => {
-  const descriptionStore = description.replace(/"/g, `'`)
+export const cardComponent = (media_type, thumbnail, photographer, title, date_created) => {
   let card =
   `
     <article
       class="card card--grid"
-      data-media="${media_type}"
-      data-name="${title}"
-      data-resource="${urlFormat}"
-      data-creator="${photographer ? photographer : "NASA"}"
-      data-created="${date_created}"
-      data-thumbnail="${thumbnail}"
-      data-description="${descriptionStore}"
     >
       <figure class="card__picture">
         ${media_type === "audio" ?
@@ -59,4 +51,3 @@ export const cardComponent = (media_type, thumbnail, photographer, title, date_c
   `
   return card
 }
-

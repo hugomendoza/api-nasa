@@ -75,18 +75,22 @@
           <aside class="header__aside flex items-center">
             <fieldset>
               <select
-                name=""
-                id=""
+                name="sort"
+                id="sort"
                 class="header__select"
               >
-                <option value="">Sort</option>
-                <option value="">Photos</option>
-                <option value="">Videos</option>
-                <option value="">Audio</option>
+                <option>Sort</option>
+                <option value="image">Photos</option>
+                <option value="video">Videos</option>
+                <option value="audio">Audio</option>
               </select>
             </fieldset>
             <fieldset class="e-grid">
-              <input type="checkbox" name="" id="grid">
+              <input
+                type="checkbox"
+                name="grid"
+                id="grid"
+              >
               <label for="grid"></label>
             </fieldset>
           </aside>
@@ -103,15 +107,19 @@
         </blockquote>
         <aside class="modal__buttons">
           <div class="m-auto">
-            <button
+            <a
+              href=""
+              download
+              rel="noopener noreferrer"
               class="modal__download"
+              target="_blank"
             >
               <img
                 src="./img/ico-download.svg"
                 alt="icono download"
               >
               <p>Download</p>
-            </button>
+            </a>
           </div>
           <div>
             <button

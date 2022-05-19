@@ -1,15 +1,9 @@
-//Functions
-import { handleTimeStamp, removeAllChildNodes, toTimestamp } from "./functions/functions.js";
-
 //webcomponents
 import { headerComponent } from "./webComponents/headerComponent.js";
 import { inputComponent } from "./webComponents/inputComponent.js";
 
-//components
-import { cardComponent } from "./components/cardComponent.js";
-import { videoModal } from "./components/videoModal.js";
-import { audioModal } from "./components/audioModal.js";
-import { imageModal } from "./components/imageModal.js";
+import { cardFetch } from "./components/cardFetch.js";
+import { clickCard } from "./functions/functions.js";
 
 //Variables
 const inputGrid = document.getElementById("grid");
@@ -18,35 +12,68 @@ const formSubmit = document.querySelector(".form");
 const sectionCards = document.querySelector(".search")
 const titleResult = document.querySelector(".header__result strong");
 const modal = document.querySelector(".modal");
-const modalClose = document.querySelector(".modal__close");
+const modalName = document.querySelector(".modal__name");
+const modalDate = document.querySelector(".modal__date");
+const modalCreator = document.querySelector(".modal__creator");
+const modalDescription = document.querySelector(".modal__text-description");
+const cardModal = document.querySelector(".card--modal");
+const modalDownload = document.querySelector(".modal__download");
 const body = document.body
+const modalClose = document.querySelector(".modal__close");
+const sortSelect = document.getElementById("sort")
 
 //Change grid cards
 inputGrid.addEventListener("change", () => {
   cards.classList.toggle("card-grid--list")
 })
 
-
-const handleApi = (arg) => {
-  removeAllChildNodes(cards); 
-  fetch(arg)
+const handleApi = async (arg) => {
+  let datos = [];
+  await fetch(arg)
     .then(response => response.json())
     .then(data => {
-      // console.log(data.collection.links)
       const dataApi = data.collection.items
-      dataApi.map((e) => {
+      dataApi.map((e, index) => {
         const dataInner = e.data[0]
         const { media_type, nasa_id, photographer, title, date_created, description } = dataInner
-        const dateCreated = toTimestamp(date_created)
-        const dateEnd = handleTimeStamp(dateCreated)
-        const typeThumbnail = "~thumb.jpg"
-        const urlFormat = `https://images-assets.nasa.gov/${media_type}/${nasa_id}/${nasa_id}`
-        const thumbnail = `${urlFormat}${typeThumbnail}`
-        sectionCards.classList.add("search--active")
-        cards.innerHTML += cardComponent(media_type, thumbnail, photographer, title, dateEnd, urlFormat, description)
+        datos.push({
+          media_type,
+          nasa_id,
+          photographer,
+          title,
+          date_created,
+          description,
+          id: index
+        });
       })
+      return datos
     });
+  
+  sectionCards.classList.add("search--active")
+  
+  cards.innerHTML = cardFetch(datos).join('')
+  clickCard(datos)
+
+  sortSelect.addEventListener("change", () => {
+    let valueSelect = sortSelect.value.toLowerCase()
+    datos.sort((x) => {
+      let a = x.media_type.toLowerCase()
+      let b = valueSelect
+      // return a < b ? 0 : a > b ? 1 : -1;
+      if ( a > b ){
+        return 1;
+      }
+      if ( b > a ){
+        return 0;
+      }
+      return -1;
+    });
+    cards.innerHTML = cardFetch(datos).join('')
+  })
 }
+
+
+
 
 formSubmit.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -65,46 +92,17 @@ formSubmit.addEventListener("submit", (e) => {
   handleApi(url)
 })
 
-cards.addEventListener('click', (e) => {
-  if (e.target.closest('.card-grid .card')) {
-    modal.classList.add("modal--active")
-    body.classList.add("no-scroll")
-    const name = e.target.getAttribute("data-name")
-    const created = e.target.getAttribute("data-created")
-    const creator = e.target.getAttribute("data-creator")
-    const urlFormat = e.target.getAttribute("data-resource")
-    const description = e.target.getAttribute("data-description")
-    const media = e.target.getAttribute("data-media")
-    const thumbnail = e.target.getAttribute("data-thumbnail")
-    document.querySelector(".modal__name").innerHTML = name
-    document.querySelector(".modal__date").innerHTML = created
-    document.querySelector(".modal__creator").innerHTML = creator
-    document.querySelector(".modal__text-description").innerHTML = description
-    const cardModal = document.querySelector(".card--modal")
-    switch (media) {
-      case "video":
-        cardModal.innerHTML = videoModal(urlFormat, thumbnail)
-        break;
-      case "audio":
-        cardModal.innerHTML = audioModal(urlFormat)
-        break;
-      default:
-        cardModal.innerHTML = imageModal(urlFormat)
-        break;
-    }
-  }
-});
-
 modalClose?.addEventListener("click", () => {
   modal.classList.remove("modal--active")
   body.classList.remove("no-scroll")
-  document.querySelector(".modal__name").innerHTML = ""
-  document.querySelector(".modal__date").innerHTML = ""
-  document.querySelector(".modal__creator").innerHTML = ""
-  document.querySelector(".modal__text-description").innerHTML = ""
-  const cardModal = document.querySelector(".card--modal")
+  modalName.innerHTML = ""
+  modalDate.innerHTML = ""
+  modalCreator.innerHTML = ""
+  modalDescription.innerHTML = ""
+  modalDownload.setAttribute("href", "")
   cardModal.innerHTML = ""
 })
+
 
 window.customElements.define("header-component", headerComponent);
 window.customElements.define("input-component", inputComponent);
