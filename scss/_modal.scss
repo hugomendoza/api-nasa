@@ -46,11 +46,12 @@
     display: flex;
   }
 
-  button {
+  button,
+  a {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
   }
 
   &__download {
@@ -62,6 +63,7 @@
     margin-inline: auto;
     margin: auto;
     margin-right: 2rem;
+    text-decoration: none;
     img {
       width: toRem(16);
       margin-right: 0.5rem;
@@ -117,6 +119,10 @@
       font-size: toRem(14);
       margin: 0;
     }
+  }
+
+  &__creator {
+    text-align: right;
   }
 
   &__description {
