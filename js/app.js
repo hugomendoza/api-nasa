@@ -52,8 +52,7 @@ const handleApi = async (arg) => {
   sectionCards.classList.add("search--active")
   
   cards.innerHTML = cardFetch(datos).join('')
-  clickCard(datos)
-
+  
   sortSelect.addEventListener("change", () => {
     let valueSelect = sortSelect.value.toLowerCase()
     datos.sort((x) => {
@@ -69,7 +68,10 @@ const handleApi = async (arg) => {
       return -1;
     });
     cards.innerHTML = cardFetch(datos).join('')
+    clickCard(datos)
   })
+
+  clickCard(datos)
 }
 
 
